@@ -1,0 +1,8 @@
+/home/diego/Documents/workspace-sts-3.9.2.RELEASE/cdtec-cmn/src/main/java/br/com/cdtec/util/ApplicationContextProvider.java
+/home/diego/Documents/workspace-sts-3.9.2.RELEASE/cdtec-cmn/src/main/java/br/com/cdtec/util/GenericUtils.java
+/home/diego/Documents/workspace-sts-3.9.2.RELEASE/cdtec-cmn/src/main/java/br/com/cdtec/config/SpringConfig.java
+/home/diego/Documents/workspace-sts-3.9.2.RELEASE/cdtec-cmn/src/main/java/br/com/cdtec/crud/service/GenericService.java
+/home/diego/Documents/workspace-sts-3.9.2.RELEASE/cdtec-cmn/src/main/java/br/com/cdtec/crud/repository/GenericRepository.java
+/home/diego/Documents/workspace-sts-3.9.2.RELEASE/cdtec-cmn/src/main/java/br/com/cdtec/crud/view/BaseController.java
+/home/diego/Documents/workspace-sts-3.9.2.RELEASE/cdtec-cmn/src/main/java/br/com/cdtec/config/SecurityConfig.java
+/home/diego/Documents/workspace-sts-3.9.2.RELEASE/cdtec-cmn/src/main/java/br/com/cdtec/crud/service/CrudService.java
