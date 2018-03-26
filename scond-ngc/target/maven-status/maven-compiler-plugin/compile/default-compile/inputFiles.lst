@@ -1,0 +1,11 @@
+/home/diego/Documents/workspace-sts-3.9.2.RELEASE/scond-ngc/src/main/java/br/com/cdtec/jwt/JwtUserFactory.java
+/home/diego/Documents/workspace-sts-3.9.2.RELEASE/scond-ngc/src/main/java/br/com/cdtec/service/CategoriaService.java
+/home/diego/Documents/workspace-sts-3.9.2.RELEASE/scond-ngc/src/main/java/br/com/cdtec/repository/CategoriaRepository.java
+/home/diego/Documents/workspace-sts-3.9.2.RELEASE/scond-ngc/src/main/java/br/com/cdtec/jwt/service/JwtUserDetailsServiceImpl.java
+/home/diego/Documents/workspace-sts-3.9.2.RELEASE/scond-ngc/src/main/java/br/com/cdtec/entity/Usuario.java
+/home/diego/Documents/workspace-sts-3.9.2.RELEASE/scond-ngc/src/main/java/br/com/cdtec/service/UsuarioService.java
+/home/diego/Documents/workspace-sts-3.9.2.RELEASE/scond-ngc/src/main/java/br/com/cdtec/jwt/JwtTokenUtil.java
+/home/diego/Documents/workspace-sts-3.9.2.RELEASE/scond-ngc/src/main/java/br/com/cdtec/jwt/JwtAuthenticationEntryPoint.java
+/home/diego/Documents/workspace-sts-3.9.2.RELEASE/scond-ngc/src/main/java/br/com/cdtec/repository/UsuarioRepository.java
+/home/diego/Documents/workspace-sts-3.9.2.RELEASE/scond-ngc/src/main/java/br/com/cdtec/entity/Categoria.java
+/home/diego/Documents/workspace-sts-3.9.2.RELEASE/scond-ngc/src/main/java/br/com/cdtec/jwt/JwtUser.java
