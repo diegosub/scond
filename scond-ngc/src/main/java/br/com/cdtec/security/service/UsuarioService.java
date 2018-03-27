@@ -1,12 +1,12 @@
-package br.com.cdtec.service;
+package br.com.cdtec.security.service;
 
 import java.math.BigInteger;
 
 import org.springframework.stereotype.Service;
 
 import br.com.cdtec.crud.service.CrudService;
-import br.com.cdtec.entity.Usuario;
-import br.com.cdtec.repository.UsuarioRepository;
+import br.com.cdtec.security.entity.Usuario;
+import br.com.cdtec.security.repository.UsuarioRepository;
 
 
 @Service

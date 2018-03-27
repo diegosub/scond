@@ -1,4 +1,4 @@
-package br.com.cdtec.jwt;
+package br.com.cdtec.security.jwt;
 
 import java.math.BigInteger;
 import java.util.Collection;

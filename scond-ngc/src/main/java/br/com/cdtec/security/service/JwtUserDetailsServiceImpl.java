@@ -1,17 +1,18 @@
-package br.com.cdtec.jwt.service;
+package br.com.cdtec.security.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import br.com.cdtec.entity.Usuario;
-import br.com.cdtec.jwt.JwtUserFactory;
-import br.com.cdtec.service.UsuarioService;
+import br.com.cdtec.security.entity.Usuario;
+import br.com.cdtec.security.jwt.JwtUserFactory;
 
 @Service
 public class JwtUserDetailsServiceImpl implements UserDetailsService {
 
+	@Autowired
 	UsuarioService usuarioService;
 	
 	@Override
@@ -19,7 +20,7 @@ public class JwtUserDetailsServiceImpl implements UserDetailsService {
 		
 		Usuario usuario = usuarioService.pesquisarPorLogin(dsLogin);
 		
-		if(usuario != null) {
+		if(usuario == null) {
 			throw new UsernameNotFoundException(String.format("Nenhum usuário encontrado com login: ", dsLogin));
 		} else {
 			return JwtUserFactory.create(usuario);

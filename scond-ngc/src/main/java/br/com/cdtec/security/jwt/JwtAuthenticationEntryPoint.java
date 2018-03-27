@@ -1,4 +1,4 @@
-package br.com.cdtec.jwt;
+package br.com.cdtec.security.jwt;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -17,13 +17,8 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint, Se
 	private static final long serialVersionUID = 1L;
 
 	@Override
-	public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException)
-			throws IOException, ServletException {
-		
-		
-		
+	public void commence(HttpServletRequest request, HttpServletResponse response,
+			AuthenticationException authException) throws IOException, ServletException {
+		response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
 	}
-	
-	
-
 }

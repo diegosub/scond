@@ -1,4 +1,4 @@
-package br.com.cdtec.entity;
+package br.com.cdtec.security.entity;
 
 import java.io.Serializable;
 import java.math.BigInteger;
@@ -11,16 +11,20 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Formula;
+import org.hibernate.annotations.Proxy;
+
 
 @Entity
 @Table(name="tb_usuario", schema="ngc")
+@SequenceGenerator(name = "SQ_USUARIO", sequenceName = "SQ_USUARIO", allocationSize = 1)
+@Proxy(lazy = true)
 public class Usuario implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name = "sq_usuario", sequenceName = "sq_usuario", allocationSize = 0)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_usuario")	
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SQ_USUARIO")	
 	@Column(name="id_usuario")
 	private BigInteger idUsuario;
 	
@@ -37,7 +41,10 @@ public class Usuario implements Serializable {
 	private String dsPassword;
 	
 	@Column(name="id_perfil")
-	private BigInteger idPerfil;
+	private Integer idPerfil;
+	
+	@Formula("(select d.ds_dominio from ngc.tb_dominio d where d.ds_campo = 'PERFIL_USUARIO' and d.vl_dominio = cast(id_perfil as text))")
+	private String dsPerfil;
 	
 	
 	public BigInteger getIdUsuario() {
@@ -72,11 +79,11 @@ public class Usuario implements Serializable {
 		this.dsPassword = dsPassword;
 	}
 
-	public BigInteger getIdPerfil() {
+	public Integer getIdPerfil() {
 		return idPerfil;
 	}
 
-	public void setIdPerfil(BigInteger idPerfil) {
+	public void setIdPerfil(Integer idPerfil) {
 		this.idPerfil = idPerfil;
 	}
 
@@ -87,4 +94,12 @@ public class Usuario implements Serializable {
 	public void setDsLogin(String dsLogin) {
 		this.dsLogin = dsLogin;
 	}
+
+	public String getDsPerfil() {
+		return dsPerfil;
+	}
+
+	public void setDsPerfil(String dsPerfil) {
+		this.dsPerfil = dsPerfil;
+	}	
 }
