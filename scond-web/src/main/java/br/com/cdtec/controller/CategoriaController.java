@@ -1,27 +1,25 @@
 package br.com.cdtec.controller;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import java.math.BigInteger;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.cdtec.crud.view.BaseController;
 import br.com.cdtec.entity.Categoria;
+import br.com.cdtec.security.jwt.JwtTokenUtil;
 import br.com.cdtec.service.CategoriaService;
 
 @RestController
-public class CategoriaController extends BaseController<CategoriaService> {
-	
-	private static final long serialVersionUID = 1L;
+@RequestMapping("/api/categoria")
+@CrossOrigin(origins = "*")
+public class CategoriaController extends CDTecController<Categoria, BigInteger, CategoriaService> {
 
-	@RequestMapping(method = RequestMethod.POST, value = "/categoria")
-	public ResponseEntity<Categoria> cadastrar() {
-		
-		Categoria categoria = getService().pesquisarPorNome("TESTE1");
-		
-		return new ResponseEntity<Categoria>(categoria, HttpStatus.ACCEPTED);
-	}
+	private static final long serialVersionUID = 1L;
+	
+	@Autowired
+	protected JwtTokenUtil jwtTokenUtil;
+
 	
 }
