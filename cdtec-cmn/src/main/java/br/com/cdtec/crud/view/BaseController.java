@@ -11,7 +11,7 @@ public class BaseController<Service> implements Serializable {
 
 	private Service service;
 	protected Class<Service> serviceClass;
-		
+			
 	public Service getService() {
 		if(service == null) {
 			service = ApplicationContextProvider.getApplicationContext().getBean(getServiceClass());
@@ -34,5 +34,6 @@ public class BaseController<Service> implements Serializable {
 	public void setServiceClass(Class<Service> serviceClass) {
 		this.serviceClass = serviceClass;
 	}
+	
 
 }
