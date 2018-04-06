@@ -13,41 +13,44 @@ import br.com.cdtec.crud.service.CrudService;
 import br.com.cdtec.crud.view.BaseController;
 import br.com.cdtec.response.Response;
 
-public class CDTecController<Entity, IdClass extends Serializable, Service extends CrudService<Entity, IdClass, ?>> 
-					extends BaseController<Service> implements Serializable{
+public class CDTecController<Entity, IdClass extends Serializable, Service extends CrudService<Entity, IdClass, ?>>
+		extends BaseController<Service> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
+	/**
+	 * Class default de insert full permission Para restringir a classe, devera ser
+	 * sobrescrita com o @PreAuthorize(role)
+	 * 
+	 * @param request
+	 * @param entity
+	 * @param result
+	 * @return
+	 */
 	@PostMapping()
-	public ResponseEntity<Response<Entity>> inserir(HttpServletRequest request, @RequestBody Entity entity, 
+	public ResponseEntity<Response<Entity>> inserir(HttpServletRequest request, @RequestBody Entity entity,
 			BindingResult result) {
-		
 		Response<Entity> response = new Response<Entity>();
-		
 		try {
 			validarInserir(entity, result);
-			
-			if(result.hasErrors()) {
+			if (result.hasErrors()) {
 				result.getAllErrors().forEach(error -> response.getErrors().add(error.getDefaultMessage()));
 				return ResponseEntity.badRequest().body(response);
 			}
-			
-			completarInserir(entity);			
+			completarInserir(entity);
 			Entity objInsert = getService().insert(entity);
 			response.setData(objInsert);
-			
 		} catch (Exception e) {
 			response.getErrors().add(e.getMessage());
 			return ResponseEntity.badRequest().body(response);
 		}
-		
-		
 		return ResponseEntity.ok(response);
-		
 	}
-	
-	protected void validarInserir(Entity entity, BindingResult result) {}
-	
-	protected void completarInserir(Entity entity) {}
+
+	protected void validarInserir(Entity entity, BindingResult result) {
+	}
+
+	protected void completarInserir(Entity entity) {
+	}
 
 }

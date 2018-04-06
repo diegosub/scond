@@ -66,7 +66,7 @@ public class JwtTokenUtil implements Serializable {
 		
 	}
 	
-	public Boolean conTokenBeRefreshed(String token) {
+	public Boolean canTokenBeRefreshed(String token) {
 		
 		return (!isTokenExpired(token));
 		

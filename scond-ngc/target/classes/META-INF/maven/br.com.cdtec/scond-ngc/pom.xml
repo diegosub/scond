@@ -18,13 +18,13 @@
 			<artifactId>cdtec-cmn</artifactId>
 			<version>1.0</version>
 		</dependency>
-				
+		
 		<dependency>
-		    <groupId>javax.servlet</groupId>
-		    <artifactId>servlet-api</artifactId>
-		    <version>2.5</version>
-		    <scope>provided</scope>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
 		</dependency>
+				
 	</dependencies>
 
 </project>
