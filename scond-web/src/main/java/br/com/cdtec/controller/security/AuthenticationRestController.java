@@ -1,4 +1,4 @@
-package br.com.cdtec.security.controller;
+package br.com.cdtec.controller.security;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -43,15 +43,15 @@ public class AuthenticationRestController {
 		
 		final Authentication authentication = authenticationManager.authenticate(
 				new UsernamePasswordAuthenticationToken(
-						authenticationRequest.getLogin(), 
-						authenticationRequest.getPassword()
+						authenticationRequest.getDsLogin(), 
+						authenticationRequest.getDsPassword()
 				)
 		);
 		
 		SecurityContextHolder.getContext().setAuthentication(authentication);
-		final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getLogin());
+		final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getDsLogin());
 		final String token = jwtTokenUtil.generateToken(userDetails);
-		final Usuario usuario = usuarioService.pesquisarPorLogin(authenticationRequest.getLogin());
+		final Usuario usuario = usuarioService.pesquisarPorLogin(authenticationRequest.getDsLogin());
 		usuario.setDsPassword(null);
 		
 		return ResponseEntity.ok(new CurrentUser(token, usuario));
@@ -64,7 +64,7 @@ public class AuthenticationRestController {
 		String login = jwtTokenUtil.getLoginFromToken(token);
 		final Usuario usuario = usuarioService.pesquisarPorLogin(login);
 		
-		if(jwtTokenUtil.conTokenBeRefreshed(token)) {
+		if(jwtTokenUtil.canTokenBeRefreshed(token)) {
 			String refreshedToken = jwtTokenUtil.refreshToken(token);
 			return ResponseEntity.ok(new CurrentUser(refreshedToken, usuario));
 		} else {
