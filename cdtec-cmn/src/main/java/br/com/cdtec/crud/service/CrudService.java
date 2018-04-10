@@ -1,6 +1,7 @@
 package br.com.cdtec.crud.service;
 
 import java.io.Serializable;
+import java.util.List;
 
 import br.com.cdtec.crud.repository.GenericRepository;
 import br.com.cdtec.util.ApplicationContextProvider;
@@ -37,7 +38,12 @@ public abstract class CrudService<Entity, IdClass extends Serializable, Reposito
 		return (Entity) getRepository().findById(pk);
 	}
 	
-	public Entity insert(Entity entity){
+	public List<Entity> findAll(){
+		return getRepository().findAll();
+	}
+	
+	public Entity insert(Entity entity) throws Exception {
+		validaInsert(entity);
 		getRepository().save(entity);
 		return entity;
 	}
@@ -57,7 +63,7 @@ public abstract class CrudService<Entity, IdClass extends Serializable, Reposito
 	 * @param entity
 	 * @param exceptions
 	 */
-	public void validaInsert(Entity entity){
+	public void validaInsert(Entity entity) throws Exception {
 		
 	}
 	

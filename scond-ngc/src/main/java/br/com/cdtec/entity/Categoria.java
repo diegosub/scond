@@ -11,16 +11,19 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Proxy;
+
 
 @Entity
 @Table(name="tb_categoria", schema="ngc")
+@SequenceGenerator(name = "SQ_CATEGORIA", sequenceName = "SQ_CATEGORIA", allocationSize = 1)
+@Proxy(lazy = true)
 public class Categoria implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name = "sq_categoria", sequenceName = "sq_categoria", allocationSize = 0)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_categoria")	
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SQ_CATEGORIA")
 	@Column(name="id_categoria")
 	private BigInteger idCategoria;
 	

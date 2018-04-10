@@ -14,7 +14,7 @@ public abstract class GenericService<Entity, IdClass> implements Serializable{
 
 	public abstract Entity findById(IdClass pk);
 	
-	public abstract Entity insert(Entity entity);
+	public abstract Entity insert(Entity entity) throws Exception;
 	
 	public abstract Entity update(Entity entity);
 	

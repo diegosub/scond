@@ -10,7 +10,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import br.com.cdtec.util.ApplicationContextProvider;
 
 @Configuration
-@ComponentScan(basePackages = {"br.com.cdtec.controller", "br.com.cdtec.service" , "br.com.cdtec.security.service"})
+@ComponentScan(basePackages = {"br.com.cdtec.service" , "br.com.cdtec.security.service"})
 @EnableScheduling
 public class SpringConfig {
 	

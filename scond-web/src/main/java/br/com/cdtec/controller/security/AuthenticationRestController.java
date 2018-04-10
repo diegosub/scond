@@ -72,4 +72,18 @@ public class AuthenticationRestController {
 		}
 		
 	}
+	
+	@PostMapping(value = "/api/validate")
+	public ResponseEntity<?> validateAuthenticationToken(HttpServletRequest request, @RequestBody String dsLogin) {
+		
+		String token = request.getHeader("Authorization");				
+		final UserDetails userDetails = userDetailsService.loadUserByUsername(dsLogin);		
+		
+		if(jwtTokenUtil.validateToken(token, userDetails)) {			
+			return ResponseEntity.ok("Token Valido!");
+		} else {
+			return ResponseEntity.badRequest().body(null);
+		}
+		
+	}
 }

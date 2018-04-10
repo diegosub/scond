@@ -23,4 +23,13 @@ public class CategoriaService extends CrudService<Categoria, BigInteger, Categor
 		return getRepository().count();
 	}	
 
+	@Override
+	public void validaInsert(Categoria entity) throws Exception {
+		Integer quantidade = getRepository().quantidadePorDescricao(entity.getDsCategoria());
+		
+		if(quantidade != null
+				&& quantidade > 0) {
+			throw new Exception("Já existe uma categoria cadastrada com esta descrição.");
+		}
+	}
 }
