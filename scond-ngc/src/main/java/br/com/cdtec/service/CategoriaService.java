@@ -12,19 +12,11 @@ import br.com.cdtec.repository.CategoriaRepository;
 @Service
 public class CategoriaService extends CrudService<Categoria, BigInteger, CategoriaRepository> {
 
-	private static final long serialVersionUID = 1L;
-
-	public Categoria pesquisarPorNome(String dsCategoria) {		
-		Categoria categoria = getRepository().pesquisarPorDescricao(dsCategoria);
-		return categoria;
-	}
-	
-	public Long getTotalCategoria() {
-		return getRepository().count();
-	}	
+	private static final long serialVersionUID = 1L;	
+	private final String fieldSort = "dsCategoria";
 
 	@Override
-	public void validaInsert(Categoria entity) throws Exception {
+	public void validarInserir(Categoria entity) throws Exception {
 		Integer quantidade = getRepository().quantidadePorDescricao(entity.getDsCategoria());
 		
 		if(quantidade != null
@@ -32,4 +24,9 @@ public class CategoriaService extends CrudService<Categoria, BigInteger, Categor
 			throw new Exception("Já existe uma categoria cadastrada com esta descrição.");
 		}
 	}
+
+	public String getFieldSort() {
+		return fieldSort;
+	}
+	
 }

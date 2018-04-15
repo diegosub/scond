@@ -1,11 +1,14 @@
 package br.com.cdtec.crud.service;
 
 import java.io.Serializable;
-import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 import br.com.cdtec.crud.repository.GenericRepository;
-import br.com.cdtec.util.ApplicationContextProvider;
-import br.com.cdtec.util.GenericUtils;
 
 /**
  * Classe extenda o CrudService deve ser annotada com @Transaction
@@ -17,74 +20,39 @@ public abstract class CrudService<Entity, IdClass extends Serializable, Reposito
 
 	private static final long serialVersionUID = 1L;
 		
+	@Autowired
 	private Repository repository;
 
-	@SuppressWarnings("unchecked")
+	
+	public Entity get(IdClass id) throws Exception {
+		return getRepository().getOne(id);
+	}
+
+	public Entity inserir(Entity entity) throws Exception {
+		validarInserir(entity);
+		getRepository().save(entity);
+		return entity;
+	}
+	
+	public Entity alterar(Entity entity) throws Exception {
+		validarAlterar(entity);
+		getRepository().save(entity);
+		return entity;
+	}	
+	
+	public Page<Entity> listarTodos(int page, int count, Sort sort) {
+		Pageable pages = PageRequest.of(page, count, sort);
+		return getRepository().findAll(pages);
+	}
+	
+	public void validarInserir(Entity entity) throws Exception {}
+	public void validarAlterar(Entity entity){}	
+
 	public Repository getRepository() {
-		if(repository == null) {
-			Class<Repository> daoClass = (Class<Repository>) GenericUtils.discoverClass(this.getClass(), 2);
-			repository = ApplicationContextProvider.getApplicationContext().getBean( daoClass );
-		}
-		
 		return repository;
 	}
 
 	public void setRepository(Repository repository) {
 		this.repository = repository;
-	}
-
-	@SuppressWarnings("unchecked")
-	public Entity findById(IdClass pk){
-		return (Entity) getRepository().findById(pk);
-	}
-	
-	public List<Entity> findAll(){
-		return getRepository().findAll();
-	}
-	
-	public Entity insert(Entity entity) throws Exception {
-		validaInsert(entity);
-		getRepository().save(entity);
-		return entity;
-	}
-	
-	public Entity update(Entity entity){
-		getRepository().save(entity);
-		return entity;
-	}
-	
-	public Entity remover(Entity entity ){
-		getRepository().delete(entity);
-		return entity;
-	}
-	
-	/**
-	 * Chamado antes da execução do insert
-	 * @param entity
-	 * @param exceptions
-	 */
-	public void validaInsert(Entity entity) throws Exception {
-		
-	}
-	
-	/**
-	 * Chamado antes da execução do update 
-	 * @param entity
-	 * @param exceptions
-	 */
-	public void validaUpdate(Entity entity){
-		
-	}
-
-	/**
-	 * Chamado para todos os itens do removeAll(), e para o item caso usando o remover()
-	 * @param entity
-	 * @param exceptions
-	 */
-	public void validaRemocao(Entity entity){
-		
-	}
-	
-	
-	
+	}	
 }

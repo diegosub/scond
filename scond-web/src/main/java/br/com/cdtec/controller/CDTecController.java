@@ -4,19 +4,29 @@ import java.io.Serializable;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import br.com.cdtec.crud.service.CrudService;
 import br.com.cdtec.crud.view.BaseController;
 import br.com.cdtec.response.Response;
+import br.com.cdtec.security.jwt.JwtTokenUtil;
 
 public class CDTecController<Entity, IdClass extends Serializable, Service extends CrudService<Entity, IdClass, ?>>
 		extends BaseController<Service> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+
+	@Autowired
+	protected JwtTokenUtil jwtTokenUtil;
 
 	/**
 	 * Class default de insert full permission Para restringir a classe, devera ser
@@ -37,8 +47,9 @@ public class CDTecController<Entity, IdClass extends Serializable, Service exten
 				result.getAllErrors().forEach(error -> response.getErrors().add(error.getDefaultMessage()));
 				return ResponseEntity.badRequest().body(response);
 			}
+
 			completarInserir(entity);
-			Entity objInsert = getService().insert(entity);
+			Entity objInsert = getService().inserir(entity);
 			response.setData(objInsert);
 		} catch (Exception e) {
 			response.getErrors().add(e.getMessage());
@@ -47,10 +58,51 @@ public class CDTecController<Entity, IdClass extends Serializable, Service exten
 		return ResponseEntity.ok(response);
 	}
 
-	protected void validarInserir(Entity entity, BindingResult result) {
+	@GetMapping(value = "{page}/{count}")
+	public ResponseEntity<Response<Page<Entity>>> findAll(HttpServletRequest request, @PathVariable int page,
+			@PathVariable int count) {
+
+		Response<Page<Entity>> response = new Response<Page<Entity>>();
+		Page<Entity> lista = null;
+		lista = getService().listarTodos(page, count, sortField());
+		response.setData(lista);
+		return ResponseEntity.ok(response);
+
 	}
 
+	@DeleteMapping(value = "/{id}/{status}")
+	public ResponseEntity<Response<String>> inativar(@PathVariable("id") IdClass id, @PathVariable("status") String status) {
+		Response<String> response = new Response<String>();
+		try {
+			Entity entity = getService().get(id);
+
+			if (entity == null) {
+				response.getErrors().add("Registro não encontrado com o código: " + id);
+				return ResponseEntity.badRequest().body(response);
+			}
+
+			atualizarStatusEntidade(entity, status);
+			getService().alterar(entity);
+
+		} catch (Exception e) {
+			response.getErrors().add(e.getMessage());
+			return ResponseEntity.badRequest().body(response);
+		}
+
+		return ResponseEntity.ok(new Response<String>());
+	}
+
+	protected void validarInserir(Entity entity, BindingResult result) {
+	}
+	
 	protected void completarInserir(Entity entity) {
+	}
+
+	protected void atualizarStatusEntidade(Entity entity, String status) {
+	}
+
+	protected Sort sortField() {
+		return null;
 	}
 
 }

@@ -2,6 +2,7 @@ package br.com.cdtec.entity;
 
 import java.io.Serializable;
 import java.math.BigInteger;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.Proxy;
 
@@ -29,7 +32,18 @@ public class Categoria implements Serializable {
 	
 	@Column(name="ds_categoria")
 	private String dsCategoria;
+	
+	@Column(name="fg_ativo")
+	private String fgAtivo;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name="dt_cadastro")
+	private Date dtCadastro;
 
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name="dt_manutencao")
+	private Date dtManutencao;
+	
 
 	public BigInteger getIdCategoria() {
 		return idCategoria;
@@ -45,5 +59,29 @@ public class Categoria implements Serializable {
 
 	public void setDsCategoria(String dsCategoria) {
 		this.dsCategoria = dsCategoria;
+	}
+
+	public String getFgAtivo() {
+		return fgAtivo;
+	}
+
+	public void setFgAtivo(String fgAtivo) {
+		this.fgAtivo = fgAtivo;
+	}
+
+	public Date getDtCadastro() {
+		return dtCadastro;
+	}
+
+	public void setDtCadastro(Date dtCadastro) {
+		this.dtCadastro = dtCadastro;
+	}
+
+	public Date getDtManutencao() {
+		return dtManutencao;
+	}
+
+	public void setDtManutencao(Date dtManutencao) {
+		this.dtManutencao = dtManutencao;
 	}
 }
