@@ -19,4 +19,7 @@ public interface CategoriaRepository extends GenericRepository<Categoria, BigInt
 	@Query("SELECT count(c) FROM Categoria c WHERE c.dsCategoria = :dsCategoria")
 	Integer quantidadePorDescricao(@Param("dsCategoria") String dsCategoria);
 	
+	@Query("SELECT count(c) FROM Categoria c WHERE c.dsCategoria = :dsCategoria AND c.idCategoria <> :idCategoria")
+	Integer quantidadePorDescricao(@Param("dsCategoria") String dsCategoria, @Param("idCategoria") BigInteger idCategoria);
+	
 }

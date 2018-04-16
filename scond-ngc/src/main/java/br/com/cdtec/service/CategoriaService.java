@@ -24,6 +24,16 @@ public class CategoriaService extends CrudService<Categoria, BigInteger, Categor
 			throw new Exception("Já existe uma categoria cadastrada com esta descrição.");
 		}
 	}
+	
+	@Override
+	public void validarAlterar(Categoria entity) throws Exception {
+		Integer quantidade = getRepository().quantidadePorDescricao(entity.getDsCategoria(), entity.getIdCategoria());
+		
+		if(quantidade != null
+				&& quantidade > 0) {
+			throw new Exception("Já existe uma categoria cadastrada com esta descrição.");
+		}
+	}
 
 	public String getFieldSort() {
 		return fieldSort;

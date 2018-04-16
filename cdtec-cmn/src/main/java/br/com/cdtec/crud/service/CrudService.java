@@ -1,6 +1,7 @@
 package br.com.cdtec.crud.service;
 
 import java.io.Serializable;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -23,9 +24,9 @@ public abstract class CrudService<Entity, IdClass extends Serializable, Reposito
 	@Autowired
 	private Repository repository;
 
-	
-	public Entity get(IdClass id) throws Exception {
-		return getRepository().getOne(id);
+		
+	public Optional<Entity> get(IdClass id) throws Exception {
+		return getRepository().findById(id);
 	}
 
 	public Entity inserir(Entity entity) throws Exception {
@@ -46,7 +47,7 @@ public abstract class CrudService<Entity, IdClass extends Serializable, Reposito
 	}
 	
 	public void validarInserir(Entity entity) throws Exception {}
-	public void validarAlterar(Entity entity){}	
+	public void validarAlterar(Entity entity) throws Exception {}
 
 	public Repository getRepository() {
 		return repository;

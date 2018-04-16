@@ -1,6 +1,7 @@
 package br.com.cdtec.crud.service;
 
 import java.io.Serializable;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
@@ -15,7 +16,7 @@ public abstract class GenericService<Entity, IdClass> implements Serializable{
 	
 	private static final long serialVersionUID = 8402381475468042717L;
 	
-	public abstract Entity get(IdClass id) throws Exception;
+	public abstract Optional<Entity> get(IdClass id) throws Exception;
 			
 	public abstract Entity inserir(Entity entity) throws Exception;
 	
