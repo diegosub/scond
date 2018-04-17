@@ -18,5 +18,5 @@ public class UsuarioService extends CrudService<Usuario, BigInteger, UsuarioRepo
 		Usuario usuario = getRepository().pesquisarPorLogin(dsLogin);
 		return usuario;
 	}
-	
+
 }

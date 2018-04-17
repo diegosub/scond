@@ -85,10 +85,15 @@ public class CDTecController<Entity, IdClass extends Serializable, Service exten
 	public ResponseEntity<Response<Page<Entity>>> findAll(HttpServletRequest request, @PathVariable int page,
 			@PathVariable int count) {
 		Response<Page<Entity>> response = new Response<Page<Entity>>();
-		Page<Entity> lista = null;
-		lista = getService().listarTodos(page, count, sortField());
-		response.setData(lista);
-		return ResponseEntity.ok(response);
+		try {
+			Page<Entity> lista = null;
+			lista = getService().listarTodos(page, count, sortField());
+			response.setData(lista);
+			return ResponseEntity.ok(response);
+		} catch (Exception e) {
+			response.getErrors().add(e.getMessage());
+			return ResponseEntity.badRequest().body(response);
+		}
 	}
 	
 	@GetMapping(value = "{id}")

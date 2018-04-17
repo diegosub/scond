@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @SpringBootApplication
 @EntityScan(basePackages={"br.com.cdtec.entity" , "br.com.cdtec.security.entity"})
 @EnableAutoConfiguration
-@EnableJpaRepositories(basePackages={"br.com.cdtec.repository" , "br.com.cdtec.security.repository"})
+@EnableJpaRepositories(basePackages={"br.com.cdtec.dao" , "br.com.cdtec.security.repository"})
 public class ScondApplication {
 
 	public static void main(String[] args) {

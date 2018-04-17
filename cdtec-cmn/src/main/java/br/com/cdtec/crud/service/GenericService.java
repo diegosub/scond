@@ -21,6 +21,8 @@ public abstract class GenericService<Entity, IdClass> implements Serializable{
 	public abstract Entity inserir(Entity entity) throws Exception;
 	
 	public abstract Entity alterar(Entity entity) throws Exception;
+	
+	public abstract Page<Entity> pesquisar(int page, int count, Entity entity, Sort sort) throws Exception;
 
 	public abstract Page<Entity> listarTodos(int page, int count, Sort sort) throws Exception;
 }

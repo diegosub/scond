@@ -41,14 +41,22 @@ public abstract class CrudService<Entity, IdClass extends Serializable, Reposito
 		return entity;
 	}	
 	
-	public Page<Entity> listarTodos(int page, int count, Sort sort) {
+	public Page<Entity> listarTodos(int page, int count, Sort sort) throws Exception {
 		Pageable pages = PageRequest.of(page, count, sort);
 		return getRepository().findAll(pages);
 	}
 	
+	@Override
+	public Page<Entity> pesquisar(int page, int count, Entity entity, Sort sort) throws Exception {
+		return implementarPesquisar(page, count, entity, sort);
+	}
+	
+	//SOBRESCREVER O METODO NO SERVICE PARA REALIZAR A PESQUISA
+	public Page<Entity> implementarPesquisar(int page, int count, Entity entity, Sort sort) throws Exception { return null; }
+	
 	public void validarInserir(Entity entity) throws Exception {}
 	public void validarAlterar(Entity entity) throws Exception {}
-
+	
 	public Repository getRepository() {
 		return repository;
 	}

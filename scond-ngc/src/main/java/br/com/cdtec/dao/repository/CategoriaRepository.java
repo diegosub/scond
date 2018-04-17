@@ -1,4 +1,4 @@
-package br.com.cdtec.repository;
+package br.com.cdtec.dao.repository;
 
 import java.math.BigInteger;
 
