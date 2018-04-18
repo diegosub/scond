@@ -1,10 +1,8 @@
 package br.com.cdtec.service;
 
 import java.math.BigInteger;
+import java.util.List;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -46,14 +44,9 @@ public class CategoriaService extends CrudService<Categoria, BigInteger, Categor
 	}
 	
 	@Override
-	public Page<Categoria> implementarPesquisar(int page, int count, Categoria categoria, Sort sort) throws Exception {
-		Pageable pages = PageRequest.of(page, count, sort);	
-		
-		categoria.setDsCategoria(categoria.getDsCategoria().equals("uniformed") ? null : categoria.getDsCategoria());
-		categoria.setFgAtivo(categoria.getFgAtivo().equals("T") ? null : categoria.getFgAtivo());
-		
+	public List<Categoria> implementarPesquisar(Categoria categoria, Sort sort) throws Exception {		
 		return getRepository().findAll(Specification.where(CategoriaSpecifications.dsCategoriaLike(categoria.getDsCategoria())
-										              .and(CategoriaSpecifications.fgAtivoIgual(categoria.getFgAtivo()))), pages);
+										              .and(CategoriaSpecifications.fgAtivoIgual(categoria.getFgAtivo()))), sort);
 	}
 	
 }

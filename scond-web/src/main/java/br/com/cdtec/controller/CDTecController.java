@@ -1,12 +1,12 @@
 package br.com.cdtec.controller;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -80,21 +80,6 @@ public class CDTecController<Entity, IdClass extends Serializable, Service exten
 		}
 		return ResponseEntity.ok(response);
 	}
-
-	@GetMapping(value = "{page}/{count}")
-	public ResponseEntity<Response<Page<Entity>>> findAll(HttpServletRequest request, @PathVariable int page,
-			@PathVariable int count) {
-		Response<Page<Entity>> response = new Response<Page<Entity>>();
-		try {
-			Page<Entity> lista = null;
-			lista = getService().listarTodos(page, count, sortField());
-			response.setData(lista);
-			return ResponseEntity.ok(response);
-		} catch (Exception e) {
-			response.getErrors().add(e.getMessage());
-			return ResponseEntity.badRequest().body(response);
-		}
-	}
 	
 	@GetMapping(value = "{id}")
 	public ResponseEntity<Response<Entity>> get(HttpServletRequest request, @PathVariable("id") IdClass id) {
@@ -108,6 +93,21 @@ public class CDTecController<Entity, IdClass extends Serializable, Service exten
 				return ResponseEntity.badRequest().body(response);
 			}
 			response.setData(entity);
+			return ResponseEntity.ok(response);
+		} catch (Exception e) {
+			response.getErrors().add(e.getMessage());
+			return ResponseEntity.badRequest().body(response);
+		}
+	}
+	
+	@PostMapping(path = "/pesquisar")
+	public ResponseEntity<Response<List<Entity>>> pesquisar(HttpServletRequest request,
+			@RequestBody Entity entity) {
+		Response<List<Entity>> response = new Response<List<Entity>>();
+		try {
+			List<Entity> lista = null;
+			lista = getService().pesquisar(entity, sortField());
+			response.setData(lista);
 			return ResponseEntity.ok(response);
 		} catch (Exception e) {
 			response.getErrors().add(e.getMessage());

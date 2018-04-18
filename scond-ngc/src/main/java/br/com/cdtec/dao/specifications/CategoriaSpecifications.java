@@ -32,7 +32,7 @@ public class CategoriaSpecifications {
 		return new Specification<Categoria>() {
 			public Predicate toPredicate(Root<Categoria> root,
 					CriteriaQuery<?> query, CriteriaBuilder cb) {
-				if(fgAtivo != null && !fgAtivo.trim().equals("")) {
+				if(fgAtivo != null && !fgAtivo.trim().equals("") && !fgAtivo.trim().equals("T")) {
 					return cb.like(root.get("fgAtivo"), fgAtivo);
 				}
 				

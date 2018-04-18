@@ -1,6 +1,7 @@
 package br.com.cdtec.crud.service;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,12 +48,12 @@ public abstract class CrudService<Entity, IdClass extends Serializable, Reposito
 	}
 	
 	@Override
-	public Page<Entity> pesquisar(int page, int count, Entity entity, Sort sort) throws Exception {
-		return implementarPesquisar(page, count, entity, sort);
+	public List<Entity> pesquisar(Entity entity, Sort sort) throws Exception {
+		return implementarPesquisar(entity, sort);
 	}
 	
 	//SOBRESCREVER O METODO NO SERVICE PARA REALIZAR A PESQUISA
-	public Page<Entity> implementarPesquisar(int page, int count, Entity entity, Sort sort) throws Exception { return null; }
+	public List<Entity> implementarPesquisar(Entity entity, Sort sort) throws Exception { return null; }
 	
 	public void validarInserir(Entity entity) throws Exception {}
 	public void validarAlterar(Entity entity) throws Exception {}

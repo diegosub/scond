@@ -1,9 +1,9 @@
 package br.com.cdtec.crud.service;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Optional;
 
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 
 /**
@@ -22,7 +22,6 @@ public abstract class GenericService<Entity, IdClass> implements Serializable{
 	
 	public abstract Entity alterar(Entity entity) throws Exception;
 	
-	public abstract Page<Entity> pesquisar(int page, int count, Entity entity, Sort sort) throws Exception;
-
-	public abstract Page<Entity> listarTodos(int page, int count, Sort sort) throws Exception;
+	public abstract List<Entity> pesquisar(Entity entity, Sort sort) throws Exception;
+	
 }
