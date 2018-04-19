@@ -18,20 +18,23 @@ import org.hibernate.annotations.Proxy;
 
 
 @Entity
-@Table(name="tb_categoria", schema="ngc")
-@SequenceGenerator(name = "SQ_CATEGORIA", sequenceName = "SQ_CATEGORIA", allocationSize = 1)
+@Table(name="tb_segmento", schema="ngc")
+@SequenceGenerator(name = "SQ_SEGMENTO", sequenceName = "SQ_SEGMENTO", allocationSize = 1)
 @Proxy(lazy = true)
-public class Categoria implements Serializable {
+public class Segmento implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SQ_CATEGORIA")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SQ_SEGMENTO")
+	@Column(name="id_segmento")
+	private BigInteger idSegmento;
+	
+	@Column(name="ds_segmento")
+	private String dsSegmento;
+	
 	@Column(name="id_categoria")
 	private BigInteger idCategoria;
-	
-	@Column(name="ds_categoria")
-	private String dsCategoria;
 	
 	@Column(name="id_usuario")
 	private BigInteger idUsuario;
@@ -46,7 +49,22 @@ public class Categoria implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="dt_manutencao")
 	private Date dtManutencao;
-	
+
+	public BigInteger getIdSegmento() {
+		return idSegmento;
+	}
+
+	public void setIdSegmento(BigInteger idSegmento) {
+		this.idSegmento = idSegmento;
+	}
+
+	public String getDsSegmento() {
+		return dsSegmento;
+	}
+
+	public void setDsSegmento(String dsSegmento) {
+		this.dsSegmento = dsSegmento;
+	}
 
 	public BigInteger getIdCategoria() {
 		return idCategoria;
@@ -56,12 +74,12 @@ public class Categoria implements Serializable {
 		this.idCategoria = idCategoria;
 	}
 
-	public String getDsCategoria() {
-		return dsCategoria;
+	public BigInteger getIdUsuario() {
+		return idUsuario;
 	}
 
-	public void setDsCategoria(String dsCategoria) {
-		this.dsCategoria = dsCategoria;
+	public void setIdUsuario(BigInteger idUsuario) {
+		this.idUsuario = idUsuario;
 	}
 
 	public String getFgAtivo() {
@@ -86,13 +104,5 @@ public class Categoria implements Serializable {
 
 	public void setDtManutencao(Date dtManutencao) {
 		this.dtManutencao = dtManutencao;
-	}
-
-	public BigInteger getIdUsuario() {
-		return idUsuario;
-	}
-
-	public void setIdUsuario(BigInteger idUsuario) {
-		this.idUsuario = idUsuario;
 	}
 }

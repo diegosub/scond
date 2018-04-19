@@ -2,23 +2,18 @@ package br.com.cdtec.controller;
 
 import java.math.BigInteger;
 import java.util.Date;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.cdtec.entity.Categoria;
-import br.com.cdtec.response.Response;
 import br.com.cdtec.service.CategoriaService;
 
 @RestController
@@ -29,13 +24,14 @@ public class CategoriaController extends CDTecController<Categoria, BigInteger, 
 	private static final long serialVersionUID = 1L;
 
 	@Override
-	protected void completarInserir(Categoria entity) {
+	protected void completarInserir(Categoria entity, HttpServletRequest request) {
+		entity.setIdUsuario(getUsuarioFromRequest(request).getIdUsuario());
 		entity.setDtCadastro(new Date());
 		entity.setFgAtivo("S");
 	}
 
 	@Override
-	protected void completarAlterar(Categoria entity) {
+	protected void completarAlterar(Categoria entity, HttpServletRequest request) {
 		entity.setDtManutencao(new Date());
 	}
 

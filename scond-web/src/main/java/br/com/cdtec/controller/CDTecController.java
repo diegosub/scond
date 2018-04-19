@@ -20,7 +20,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import br.com.cdtec.crud.service.CrudService;
 import br.com.cdtec.crud.view.BaseController;
 import br.com.cdtec.response.Response;
+import br.com.cdtec.security.entity.Usuario;
 import br.com.cdtec.security.jwt.JwtTokenUtil;
+import br.com.cdtec.security.service.UsuarioService;
 
 public class CDTecController<Entity, IdClass extends Serializable, Service extends CrudService<Entity, IdClass, ?>>
 		extends BaseController<Service> implements Serializable {
@@ -29,6 +31,9 @@ public class CDTecController<Entity, IdClass extends Serializable, Service exten
 
 	@Autowired
 	protected JwtTokenUtil jwtTokenUtil;
+	
+	@Autowired
+	private UsuarioService usuarioService;
 
 	/**
 	 * Class default de insert full permission Para restringir a classe, devera ser
@@ -50,7 +55,7 @@ public class CDTecController<Entity, IdClass extends Serializable, Service exten
 				return ResponseEntity.badRequest().body(response);
 			}
 
-			completarInserir(entity);
+			completarInserir(entity, request);
 			Entity objInsert = getService().inserir(entity);
 			response.setData(objInsert);
 		} catch (Exception e) {
@@ -71,7 +76,7 @@ public class CDTecController<Entity, IdClass extends Serializable, Service exten
 				return ResponseEntity.badRequest().body(response);
 			}
 
-			completarAlterar(entity);			
+			completarAlterar(entity, request);			
 			Entity userPersisted = (Entity) getService().alterar(entity);
 			response.setData(userPersisted);
 		} catch (Exception e) {
@@ -141,10 +146,17 @@ public class CDTecController<Entity, IdClass extends Serializable, Service exten
 
 	protected void validarInserir(Entity entity, BindingResult result) {}	
 	protected void validarAlterar(Entity entity, BindingResult result) {}
-	protected void completarInserir(Entity entity) {}	
-	protected void completarAlterar(Entity entity) {}
+	protected void completarInserir(Entity entity, HttpServletRequest request) {}	
+	protected void completarAlterar(Entity entity,  HttpServletRequest request) {}
 	protected void atualizarStatusEntidade(Entity entity, String status) {}
 
+	
+	public Usuario getUsuarioFromRequest(HttpServletRequest request) {		
+		String token = request.getHeader("Authorization");
+		String login = jwtTokenUtil.getLoginFromToken(token);		
+		return usuarioService.pesquisarPorLogin(login);		
+	}	
+	
 	protected Sort sortField() {
 		return null;
 	}
