@@ -1,6 +1,7 @@
 package br.com.cdtec.dao.repository;
 
 import java.math.BigInteger;
+import java.util.Optional;
 
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.jpa.repository.Query;
@@ -18,5 +19,8 @@ public interface SegmentoRepository extends GenericRepository<Segmento, BigInteg
 	
 	@Query("SELECT count(c) FROM Categoria c WHERE c.dsCategoria = :dsCategoria AND c.idCategoria <> :idCategoria")
 	Integer quantidadePorDescricao(@Param("dsCategoria") String dsCategoria, @Param("idCategoria") BigInteger idCategoria);
+	
+	@Query("SELECT s FROM Segmento s INNER JOIN FETCH s.categoria WHERE s.idSegmento = :idSegmento")
+	Optional<Segmento> findById(@Param("idSegmento") BigInteger idSegmento);
 	
 }

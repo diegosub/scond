@@ -45,8 +45,9 @@ public class SegmentoService extends CrudService<Segmento, BigInteger, SegmentoR
 	
 	@Override
 	public List<Segmento> implementarPesquisar(Segmento segmento, Sort sort) throws Exception {		
-		return getRepository().findAll(Specification.where(SegmentoSpecifications.dsSegmentoLike(segmento.getDsSegmento())
-													  .and (SegmentoSpecifications.idCategoriaIgual(segmento.getIdCategoria()))
+		return getRepository().findAll(Specification.where(SegmentoSpecifications.innerCategoria())
+													  .and(SegmentoSpecifications.dsSegmentoLike(segmento.getDsSegmento())
+													  .and(SegmentoSpecifications.idCategoriaIgual(segmento.getIdCategoria()))
 										              .and(SegmentoSpecifications.fgAtivoIgual(segmento.getFgAtivo()))), sort);
 	}
 	

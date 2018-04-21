@@ -6,9 +6,12 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -35,6 +38,10 @@ public class Segmento implements Serializable {
 	
 	@Column(name="id_categoria")
 	private BigInteger idCategoria;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_categoria", insertable = false, updatable = false)
+	private Categoria categoria;
 	
 	@Column(name="id_usuario")
 	private BigInteger idUsuario;
@@ -104,5 +111,13 @@ public class Segmento implements Serializable {
 
 	public void setDtManutencao(Date dtManutencao) {
 		this.dtManutencao = dtManutencao;
+	}
+
+	public Categoria getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
 	}
 }
