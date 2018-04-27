@@ -43,7 +43,7 @@ public class SegmentoController extends CDTecController<Segmento, BigInteger, Se
 		}
 		
 		if (entity.getIdCategoria() == null || entity.getIdCategoria().longValue() <= 0) {
-			result.addError(new ObjectError("Segmento", "Descrição obrigatória."));
+			result.addError(new ObjectError("Segmento", "Categoria obrigatória."));
 			return;
 		}
 	}
@@ -61,7 +61,7 @@ public class SegmentoController extends CDTecController<Segmento, BigInteger, Se
 		}
 		
 		if (entity.getIdCategoria() == null || entity.getIdCategoria().longValue() <= 0) {
-			result.addError(new ObjectError("Segmento", "Descrição obrigatória."));
+			result.addError(new ObjectError("Segmento", "Categoria obrigatória."));
 			return;
 		}
 	}
