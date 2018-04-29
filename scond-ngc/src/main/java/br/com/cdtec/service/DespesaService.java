@@ -25,7 +25,11 @@ public class DespesaService extends CrudService<Despesa, BigInteger, DespesaRepo
 	
 	@Override
 	public List<Despesa> implementarPesquisar(Despesa despesa, Sort sort) throws Exception {		
-		return getRepository().findAll(Specification.where(DespesaSpecifications.fgAtivoIgual(despesa.getFgAtivo())), sort);
+		return getRepository().findAll(Specification.where(DespesaSpecifications.idIgual(despesa.getIdDespesa()))
+																				 .and(DespesaSpecifications.leftJoinEstabelecimento())
+																				 .and(DespesaSpecifications.leftJoinSegmento())
+																				 .and(DespesaSpecifications.fgAtivoIgual(despesa.getFgAtivo()))
+																				 .and(DespesaSpecifications.betweenDatas(despesa.getDtCompra(), despesa.getDtCompra())), sort);				
 	}
 	
 }

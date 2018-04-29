@@ -6,13 +6,17 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Proxy;
 
@@ -33,11 +37,23 @@ public class Despesa implements Serializable {
 	@Column(name="id_segmento")
 	private BigInteger idSegmento;
 	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_segmento", insertable = false, updatable = false)
+	private Segmento segmento;
+	
 	@Column(name="id_estabelecimento")
 	private BigInteger idEstabelecimento;
 	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_estabelecimento", insertable = false, updatable = false)
+	private Estabelecimento estabelecimento;
+	
 	@Column(name="id_cartao")
 	private BigInteger idCartao;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_cartao", insertable = false, updatable = false)
+	private Cartao cartao;
 		
 	@Column(name="id_usuario")
 	private BigInteger idUsuario;
@@ -72,6 +88,9 @@ public class Despesa implements Serializable {
 	
 	@Column(name="vl_mes_cartao")
 	private Integer vlMesCartao;
+	
+	@Transient
+	private String strVlDespesa;
 
 	public BigInteger getIdDespesa() {
 		return idDespesa;
@@ -184,4 +203,37 @@ public class Despesa implements Serializable {
 	public void setVlMesCartao(Integer vlMesCartao) {
 		this.vlMesCartao = vlMesCartao;
 	}
+
+	public Estabelecimento getEstabelecimento() {
+		return estabelecimento;
+	}
+
+	public void setEstabelecimento(Estabelecimento estabelecimento) {
+		this.estabelecimento = estabelecimento;
+	}
+
+	public Cartao getCartao() {
+		return cartao;
+	}
+
+	public void setCartao(Cartao cartao) {
+		this.cartao = cartao;
+	}
+
+	public Segmento getSegmento() {
+		return segmento;
+	}
+
+	public void setSegmento(Segmento segmento) {
+		this.segmento = segmento;
+	}
+
+	public String getStrVlDespesa() {
+		return strVlDespesa;
+	}
+
+	public void setStrVlDespesa(String strVlDespesa) {
+		this.strVlDespesa = strVlDespesa;
+	}
+	
 }

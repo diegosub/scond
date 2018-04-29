@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
@@ -24,8 +25,8 @@ import br.com.cdtec.security.entity.Usuario;
 import br.com.cdtec.security.jwt.JwtTokenUtil;
 import br.com.cdtec.security.service.UsuarioService;
 
-public class CDTecController<Entity, IdClass extends Serializable, Service extends CrudService<Entity, IdClass, ?>>
-		extends BaseController<Service> implements Serializable {
+public class CDTecController<Entity, GenericDTO, IdClass extends Serializable, Service extends CrudService<Entity, IdClass, ?>>
+		extends BaseController<Entity, Service> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -34,6 +35,9 @@ public class CDTecController<Entity, IdClass extends Serializable, Service exten
 	
 	@Autowired
 	private UsuarioService usuarioService;
+	
+	@Autowired
+	public ModelMapper modelMapper;
 
 	/**
 	 * Class default de insert full permission Para restringir a classe, devera ser
@@ -97,6 +101,8 @@ public class CDTecController<Entity, IdClass extends Serializable, Service exten
 				response.getErrors().add("Registro não encontrado com o código:" + id);
 				return ResponseEntity.badRequest().body(response);
 			}
+			
+			this.atualizarEntityResponse(entity);
 			response.setData(entity);
 			return ResponseEntity.ok(response);
 		} catch (Exception e) {
@@ -109,9 +115,10 @@ public class CDTecController<Entity, IdClass extends Serializable, Service exten
 	public ResponseEntity<Response<List<Entity>>> pesquisar(HttpServletRequest request,
 			@RequestBody Entity entity) {
 		Response<List<Entity>> response = new Response<List<Entity>>();
-		try {
+		try {					
 			List<Entity> lista = null;
 			lista = getService().pesquisar(entity, sortField());
+			this.atualizarListaResponse(lista);
 			response.setData(lista);
 			return ResponseEntity.ok(response);
 		} catch (Exception e) {
@@ -149,6 +156,8 @@ public class CDTecController<Entity, IdClass extends Serializable, Service exten
 	protected void completarInserir(Entity entity, HttpServletRequest request) {}	
 	protected void completarAlterar(Entity entity,  HttpServletRequest request) {}
 	protected void atualizarStatusEntidade(Entity entity, String status) {}
+	protected void atualizarListaResponse(List<Entity> lista) {}
+	protected void atualizarEntityResponse(Entity entity) {}
 
 	
 	public Usuario getUsuarioFromRequest(HttpServletRequest request) {		
@@ -159,6 +168,10 @@ public class CDTecController<Entity, IdClass extends Serializable, Service exten
 	
 	protected Sort sortField() {
 		return null;
+	}
+	
+	public void convertDTOtoSearchObject(GenericDTO dto) {	
+		modelMapper.map(dto, getSearchObject());
 	}
 
 }

@@ -73,7 +73,7 @@ public class SegmentoSpecifications {
 	}
 	
 	@SuppressWarnings("serial")
-	public static Specification<Segmento> innerCategoria() {
+	public static Specification<Segmento> leftJoinCategoria() {
 		return new Specification<Segmento>() {
 			public Predicate toPredicate(Root<Segmento> root,
 					CriteriaQuery<?> query, CriteriaBuilder cb) {

@@ -13,13 +13,14 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.cdtec.dto.EstabelecimentoDTO;
 import br.com.cdtec.entity.Estabelecimento;
 import br.com.cdtec.service.EstabelecimentoService;
 
 @RestController
 @RequestMapping("/api/estabelecimento")
 @CrossOrigin(origins = "*")
-public class EstabelecimentoController extends CDTecController<Estabelecimento, BigInteger, EstabelecimentoService> {
+public class EstabelecimentoController extends CDTecController<Estabelecimento, EstabelecimentoDTO, BigInteger, EstabelecimentoService> {
 
 	private static final long serialVersionUID = 1L;
 
